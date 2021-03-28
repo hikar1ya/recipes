@@ -5,9 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.iterator
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import hikariya.recipes.R
 import hikariya.recipes.database.RecipesDatabase
 import hikariya.recipes.databinding.FragmentRecipesBinding
@@ -32,10 +34,20 @@ class RecipesFragment : Fragment() {
 
         val adapter = RecipesAdapter()
         binding.recipesList.adapter = adapter
+        adapter.viewModel = viewModel
 
         viewModel.recipes.observe(viewLifecycleOwner, Observer { recipesList ->
             if (recipesList != null)
                 adapter.data = recipesList
+        })
+
+        viewModel.navigateToRecipeInfo.observe(viewLifecycleOwner, Observer { recipe ->
+            if (recipe != null) {
+                this.findNavController().navigate(
+                    RecipesFragmentDirections
+                        .actionRecipesFragmentToRecipeInfoFragment())
+                viewModel.doneNavigating()
+            }
         })
 
         return binding.root
