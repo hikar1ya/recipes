@@ -12,8 +12,20 @@
         tools:layout="@layout/fragment_recipes">
     </fragment>
     <fragment
-        android:id="@+id/addRecipeFragment"
+        android:id="@+id/add_recipe_fragment"
         android:name="hikariya.recipes.addrecipe.AddRecipeFragment"
         android:label="@string/adding_recipe"
-        tools:layout="@layout/add_recipe_fragment" />
+        tools:layout="@layout/add_recipe_fragment">
+        <action
+            android:id="@+id/action_addRecipeFragment_to_recipesFragment"
+            app:destination="@id/recipes_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_in_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/about_fragment"
+        android:name="hikariya.recipes.about.AboutFragment"
+        android:label="@string/about"
+        tools:layout="@layout/fragment_about" />
+
 </navigation>

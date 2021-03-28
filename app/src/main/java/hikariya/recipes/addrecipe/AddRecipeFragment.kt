@@ -7,7 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.Transformations
+import androidx.navigation.fragment.findNavController
 import hikariya.recipes.R
 import hikariya.recipes.database.Recipe
 import hikariya.recipes.database.RecipesDatabase
@@ -35,9 +37,20 @@ class AddRecipeFragment : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(AddRecipeViewModel::class.java)
 
+        // добавление нового рецепта
         binding.addRecipe.setOnClickListener {
-            viewModel.addRecipe(binding.nameEditText.text.toString())
+            viewModel.onSave(binding.nameEditText.text.toString())
         }
+
+        //навигация на главный экран после добавления рецепта
+        viewModel.navigateToRecipes.observe(viewLifecycleOwner, Observer { recipe ->
+            if (recipe != null) {
+                this.findNavController().navigate(
+                    AddRecipeFragmentDirections
+                        .actionAddRecipeFragmentToRecipesFragment())
+                viewModel.doneNavigating()
+            }
+        })
 
         return binding.root
     }
