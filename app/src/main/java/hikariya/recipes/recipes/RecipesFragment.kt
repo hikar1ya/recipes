@@ -21,7 +21,8 @@ class RecipesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding: FragmentRecipesBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_recipes, container, false)
+            inflater, R.layout.fragment_recipes, container, false
+        )
 
         val application = requireNotNull(this.activity).application
         val dao = RecipesDatabase.getInstance(application).getRecipesDatabaseDao()

@@ -5,11 +5,6 @@
     android:id="@+id/navigation"
     app:startDestination="@id/recipes_fragment">
 
-    <activity
-        android:id="@+id/mainActivity"
-        android:name="hikariya.recipes.MainActivity"
-        android:label="main_activity"
-        tools:layout="@layout/main_activity" />
     <fragment
         android:id="@+id/recipes_fragment"
         android:name="hikariya.recipes.recipes.RecipesFragment"
