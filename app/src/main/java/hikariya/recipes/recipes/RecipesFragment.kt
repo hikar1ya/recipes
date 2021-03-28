@@ -45,7 +45,7 @@ class RecipesFragment : Fragment() {
             if (recipe != null) {
                 this.findNavController().navigate(
                     RecipesFragmentDirections
-                        .actionRecipesFragmentToRecipeInfoFragment())
+                        .actionRecipesFragmentToRecipeInfoFragment(recipe.id, recipe.name))
                 viewModel.doneNavigating()
             }
         })

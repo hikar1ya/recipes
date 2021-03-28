@@ -1,12 +1,15 @@
 package hikariya.recipes.recipeinfo
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import hikariya.recipes.R
-import hikariya.recipes.addrecipe.AddRecipeViewModel
+import hikariya.recipes.database.RecipesDatabase
+import hikariya.recipes.databinding.FragmentRecipeInfoBinding
 
 
 class RecipeInfoFragment : Fragment() {
@@ -17,8 +20,22 @@ class RecipeInfoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_recipe_info, container, false)
+
+        val binding: FragmentRecipeInfoBinding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_recipe_info, container, false
+        )
+
+        val application = requireNotNull(this.activity).application
+        val args = RecipeInfoFragmentArgs.fromBundle(requireArguments())
+        val recipeId = args.recipeId
+        val dao = RecipesDatabase.getInstance(application).getRecipesDatabaseDao()
+        val viewModelFactory = RecipeInfoViewModelFactory(recipeId, dao)
+        viewModel = ViewModelProvider(this, viewModelFactory)
+            .get(RecipeInfoViewModel::class.java)
+
+        binding.recipeInfoName.setText(args.name)
+
+        return binding.root
     }
 
 }

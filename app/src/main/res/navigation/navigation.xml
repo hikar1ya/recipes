@@ -13,6 +13,7 @@
         <action
             android:id="@+id/action_recipes_fragment_to_recipe_info_fragment"
             app:destination="@id/recipeInfoFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/addRecipeFragment"
@@ -33,7 +34,14 @@
     <fragment
         android:id="@+id/recipeInfoFragment"
         android:name="hikariya.recipes.recipeinfo.RecipeInfoFragment"
-        android:label="fragment_recipe_info"
-        tools:layout="@layout/fragment_recipe_info" />
+        android:label="@string/info"
+        tools:layout="@layout/fragment_recipe_info">
+        <argument
+            android:name="recipeId"
+            app:argType="long" />
+        <argument
+            android:name="name"
+            app:argType="string" />
+    </fragment>
 
 </navigation>
