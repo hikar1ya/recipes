@@ -1,24 +1,17 @@
 package hikariya.recipes.addrecipe
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import hikariya.recipes.R
-import hikariya.recipes.database.Recipe
 import hikariya.recipes.database.RecipesDatabase
-import hikariya.recipes.database.RecipesDatabaseDao
 import hikariya.recipes.databinding.AddRecipeFragmentBinding
-import hikariya.recipes.databinding.FragmentRecipesBinding
-import hikariya.recipes.recipes.RecipesAdapter
-import hikariya.recipes.recipes.RecipesViewModel
-import hikariya.recipes.recipes.RecipesViewModelFactory
 
 class AddRecipeFragment : Fragment() {
 
@@ -37,20 +30,31 @@ class AddRecipeFragment : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(AddRecipeViewModel::class.java)
 
+        val adapter = AddRecipeAdapter()
+        binding.ingredientsList.adapter = adapter
+
+
         // добавление нового рецепта
         binding.addRecipe.setOnClickListener {
             viewModel.onSave(binding.nameEditText.text.toString())
         }
 
-        //навигация на главный экран после добавления рецепта
-        viewModel.navigateToRecipes.observe(viewLifecycleOwner, Observer { recipe ->
-            if (recipe != null) {
+        // навигация на главный экран после добавления рецепта
+        viewModel.navigateToRecipes.observe(viewLifecycleOwner, Observer { shouldNavigate ->
+            if (shouldNavigate!!) {
                 this.findNavController().navigate(
                     AddRecipeFragmentDirections
                         .actionAddRecipeFragmentToRecipesFragment())
                 viewModel.doneNavigating()
             }
         })
+
+        // добавление нового ингредиента
+        binding.addIngredientButton.setOnClickListener {
+            viewModel.onAddIngredient()
+            adapter.data = viewModel.ingredients
+        }
+
 
         return binding.root
     }

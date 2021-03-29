@@ -24,6 +24,8 @@
     <string name="name">Название</string>
     <string name="steps_of_cooking">Шаги приготовления</string>
     <string name="info">Информация</string>
+    <string name="add">Добавить</string>
+    <string name="adding_ingredient">Добавление ингредиента</string>
 
     <!-- Recipe info -->
 

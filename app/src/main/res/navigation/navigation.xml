@@ -24,7 +24,7 @@
             android:id="@+id/action_addRecipeFragment_to_recipesFragment"
             app:destination="@id/recipesFragment"
             app:enterAnim="@anim/slide_in_right"
-            app:popEnterAnim="@anim/slide_in_right" />
+            app:popEnterAnim="@anim/slide_in_left" />
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"

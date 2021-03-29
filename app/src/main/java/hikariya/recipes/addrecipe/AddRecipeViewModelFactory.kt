@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import hikariya.recipes.database.RecipesDatabaseDao
 
+@Suppress("UNCHECKED_CAST")
 class AddRecipeViewModelFactory(
     private val dao: RecipesDatabaseDao,
     private val application: Application

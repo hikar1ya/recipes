@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import hikariya.recipes.database.Ingredient
 import hikariya.recipes.database.Recipe
 import hikariya.recipes.database.RecipesDatabaseDao
 import kotlinx.coroutines.*
@@ -17,12 +17,25 @@ class AddRecipeViewModel(
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    private val _navigateToRecipes = MutableLiveData<Recipe>()
-    val navigateToRecipes: LiveData<Recipe>
+    private val _navigateToRecipes = MutableLiveData<Boolean>()
+    val navigateToRecipes: LiveData<Boolean>
         get() = _navigateToRecipes
 
+    private val _navigateToAddIngredient = MutableLiveData<Boolean>()
+    val navigateToAddIngredient: LiveData<Boolean?>
+        get() = _navigateToAddIngredient
+
+    private val _ingrediens = ArrayList<Ingredient>()
+    val ingredients : ArrayList<Ingredient>
+        get() = _ingrediens
+
     fun doneNavigating() {
-        _navigateToRecipes.value = null
+        _navigateToRecipes.value = false
+        _navigateToAddIngredient.value = false
+    }
+
+    fun onAddIngredient() {
+        ingredients.add(Ingredient())
     }
 
     fun onSave(name: String) {
@@ -30,7 +43,7 @@ class AddRecipeViewModel(
             val recipe = Recipe()
             recipe.name = name
             insert(recipe)
-            _navigateToRecipes.value = recipe
+            _navigateToRecipes.value = true
         }
     }
 
@@ -44,6 +57,5 @@ class AddRecipeViewModel(
         super.onCleared()
         viewModelJob.cancel()
     }
-
 
 }

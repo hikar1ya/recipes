@@ -1,78 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-    </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/nameTextView"
-            android:text="@string/recipe_name"
-            style="@style/textViewStyle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <EditText
-            android:id="@+id/nameEditText"
-            style="@style/textInputStyle"
-            android:inputType="text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/nameTextView" />
-
-        <TextView
-            android:id="@+id/ingredientsTextView"
-            android:text="@string/ingredients"
-            style="@style/textViewStyle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/nameEditText"/>
-
-        <Button
-            android:id="@+id/addButton"
-            android:text="@string/add_ingredient"
-            style="@style/buttonStyle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ingredientsTextView"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/ingredients_list"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/addButton"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+            tools:context=".hikariya.recipes.addrecipe.AddRecipeFragment">
 
-        <TextView
-            android:id="@+id/stepsTextView"
-            android:text="@string/steps"
-            style="@style/textViewStyle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ingredients_list"/>
+            <TextView
+                android:id="@+id/nameTextView"
+                style="@style/textViewStyle"
+                android:text="@string/recipe_name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/stepsEditText"
-            style="@style/textInputStyle"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:inputType="none"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/stepsTextView" />
+            <EditText
+                android:id="@+id/nameEditText"
+                style="@style/editTextStyle"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/nameTextView" />
 
-        <Button
-            android:id="@+id/add_recipe"
-            style="@style/buttonStyle"
-            android:text="@string/save"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/stepsEditText" />
+            <TextView
+                android:id="@+id/ingredientsTextView"
+                style="@style/textViewStyle"
+                android:text="@string/ingredients"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/nameEditText" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <Button
+                android:id="@+id/addIngredientButton"
+                style="@style/buttonStyle"
+                android:text="@string/add_ingredient"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ingredientsTextView" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/ingredients_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/addIngredientButton" />
+
+            <TextView
+                android:id="@+id/stepsTextView"
+                style="@style/textViewStyle"
+                android:text="@string/steps"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ingredients_list" />
+
+            <EditText
+                android:id="@+id/stepsEditText"
+                style="@style/editTextStyle"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:inputType="textMultiLine"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/stepsTextView" />
+
+            <Button
+                android:id="@+id/add_recipe"
+                style="@style/buttonStyle"
+                android:text="@string/save"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/stepsEditText" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>
