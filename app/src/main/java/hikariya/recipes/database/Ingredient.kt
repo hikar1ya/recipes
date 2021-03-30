@@ -25,7 +25,7 @@ data class Ingredient(
     var name: String = "",
 
     @ColumnInfo(name = "quantity")
-    var quantity: Int = -1,
+    var quantity: String = "",
 
     @ColumnInfo(name = "recipe_id")
     var recipe_id: Long = 0L

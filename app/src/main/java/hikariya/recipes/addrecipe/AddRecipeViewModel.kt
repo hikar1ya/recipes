@@ -21,31 +21,66 @@ class AddRecipeViewModel(
     val navigateToRecipes: LiveData<Boolean>
         get() = _navigateToRecipes
 
-    private val _navigateToAddIngredient = MutableLiveData<Boolean>()
-    val navigateToAddIngredient: LiveData<Boolean?>
-        get() = _navigateToAddIngredient
+    private val _duplicateName = MutableLiveData<Boolean>()
+    val duplicateName: LiveData<Boolean>
+        get() = _duplicateName
 
-    private val _ingrediens = ArrayList<Ingredient>()
-    val ingredients : ArrayList<Ingredient>
-        get() = _ingrediens
+    var ingredients = ArrayList<Ingredient>()
 
     fun doneNavigating() {
         _navigateToRecipes.value = false
-        _navigateToAddIngredient.value = false
     }
 
-    fun onAddIngredient() {
-        ingredients.add(Ingredient())
-    }
+//    fun checkNameDuplicate(name: String) {
+//        uiScope.launch {
+//            val recipe = getByName(name)
+//            _duplicateName.value = recipe != null
+//        }
+//    }
+//
+//    private suspend fun getByName(name: String): Recipe? {
+//        return withContext(Dispatchers.IO) {
+//            dao.getByName(name)
+//        }
+//    }
 
-    fun onSave(name: String) {
+    fun onSave(name: String, steps: String) {
         uiScope.launch {
             val recipe = Recipe()
             recipe.name = name
+            recipe.steps = steps
             insert(recipe)
-            _navigateToRecipes.value = true
         }
+        _navigateToRecipes.value = true
     }
+
+//    fun getId() {
+//        uiScope.launch {
+//            val recipes = getRecipes()
+//        }
+//    }
+//
+//    private suspend fun getRecipes(): LiveData<List<Recipe>> {
+//        return withContext(Dispatchers.IO) {
+//            dao.getAllRecipes()
+//        }
+//    }
+//
+//    @RequiresApi(Build.VERSION_CODES.N)
+//    fun saveIngredients(id: Long) {
+//        ingredients.forEach(Consumer { ingredient ->
+//            uiScope.launch {
+//                ingredient.recipe_id = id
+//                insertIngredient(ingredient)
+//            }
+//        })
+//    }
+//
+//    private suspend fun insertIngredient(ingredient: Ingredient) {
+//        withContext(Dispatchers.IO) {
+//            dao.insertIngredient(ingredient)
+//        }
+//    }
 
     private suspend fun insert(recipe: Recipe) {
         withContext(Dispatchers.IO) {

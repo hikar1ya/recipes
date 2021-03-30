@@ -18,30 +18,31 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
+            android:id="@+id/buttonsLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/recipeNameInfo">
+
             <Button
                 android:id="@+id/ingredientsInfoButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/ingredients"
-                android:layout_weight="1"
-                android:backgroundTint="@color/white"
-                android:textColor="@color/purple_200"
-                />
+                style="@style/infoButtonStyle"
+                android:text="@string/ingredients"/>
 
             <Button
                 android:id="@+id/cookingInfoButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="@string/cooking"
-                android:layout_weight="1"/>
+                style="@style/infoButtonStyle"/>
+
         </LinearLayout>
 
-
+        <TextView
+            android:id="@+id/contentText"
+            style="@style/textViewStyle"
+            android:text="TextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/buttonsLinearLayout" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

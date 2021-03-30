@@ -20,7 +20,7 @@ interface RecipesDatabaseDao {
     @Query("SELECT * FROM recipe_table ORDER BY id DESC")
     fun getAllRecipes(): LiveData<List<Recipe>>
 
-    @Query("SELECT * FROM recipe_table WHERE name LIKE :name")
+    @Query("SELECT * FROM recipe_table WHERE name = :name")
     fun getByName(name: String): Recipe?
 
     @Insert

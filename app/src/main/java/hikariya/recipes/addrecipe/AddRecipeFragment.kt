@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import hikariya.recipes.R
+import hikariya.recipes.database.Ingredient
 import hikariya.recipes.database.RecipesDatabase
 import hikariya.recipes.databinding.AddRecipeFragmentBinding
 
@@ -31,12 +32,21 @@ class AddRecipeFragment : Fragment() {
             .get(AddRecipeViewModel::class.java)
 
         val adapter = AddRecipeAdapter()
+        adapter.viewModel = viewModel
         binding.ingredientsList.adapter = adapter
 
 
         // добавление нового рецепта
         binding.addRecipe.setOnClickListener {
-            viewModel.onSave(binding.nameEditText.text.toString())
+            viewModel.onSave(binding.nameEditText.text.toString(), binding.stepsEditText.text.toString())
+//            viewModel.checkNameDuplicate(binding.nameEditText.toString())
+//            viewModel.duplicateName.observe(viewLifecycleOwner, Observer { duplicate ->
+//                if (duplicate!!) {
+//                    binding.nameRecipeWarning.height = 50
+//                } else {
+//                    viewModel.onSave(binding.nameEditText.text.toString())
+//                }
+//            })
         }
 
         // навигация на главный экран после добавления рецепта
@@ -51,10 +61,9 @@ class AddRecipeFragment : Fragment() {
 
         // добавление нового ингредиента
         binding.addIngredientButton.setOnClickListener {
-            viewModel.onAddIngredient()
+            viewModel.ingredients.add(Ingredient())
             adapter.data = viewModel.ingredients
         }
-
 
         return binding.root
     }

@@ -33,7 +33,15 @@ class RecipeInfoFragment : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(RecipeInfoViewModel::class.java)
 
-        binding.recipeInfoName.setText(args.name)
+        binding.recipeNameInfo.text = args.name
+
+        binding.ingredientsInfoButton.setOnClickListener{
+            binding.contentText?.text = "Ингредиенты"
+        }
+
+        binding.cookingInfoButton.setOnClickListener{
+            binding.contentText?.text = "Приготовление"
+        }
 
         return binding.root
     }

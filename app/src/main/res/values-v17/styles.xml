@@ -24,4 +24,13 @@
         <item name="android:layout_marginTop">@dimen/vertical_margin</item>
         <item name="android:layout_marginEnd">@dimen/horizontal_margin</item>
     </style>
+
+    <style name="infoButtonStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="backgroundTint">@color/white</item>
+        <item name="android:textColor">@color/purple_200</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@color/white</item>
+    </style>
 </resources>

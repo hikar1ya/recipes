@@ -29,12 +29,23 @@
                 app:layout_constraintTop_toBottomOf="@id/nameTextView" />
 
             <TextView
+                android:id="@+id/nameRecipeWarning"
+                android:text="Такое название уже существует"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/nameEditText"
+                android:height="0dp"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="@dimen/horizontal_margin"
+                android:textColor="@color/red"/>
+
+            <TextView
                 android:id="@+id/ingredientsTextView"
                 style="@style/textViewStyle"
                 android:text="@string/ingredients"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/nameEditText" />
+                app:layout_constraintTop_toBottomOf="@id/nameRecipeWarning" />
 
             <Button
                 android:id="@+id/addIngredientButton"
