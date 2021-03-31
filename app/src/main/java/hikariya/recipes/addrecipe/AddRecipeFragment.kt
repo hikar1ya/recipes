@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doAfterTextChanged
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -23,7 +24,8 @@ class AddRecipeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding: AddRecipeFragmentBinding = DataBindingUtil.inflate(
-            inflater, R.layout.add_recipe_fragment, container, false)
+            inflater, R.layout.add_recipe_fragment, container, false
+        )
 
         val application = requireNotNull(this.activity).application
         val dao = RecipesDatabase.getInstance(application).getRecipesDatabaseDao()
@@ -37,15 +39,45 @@ class AddRecipeFragment : Fragment() {
 
         // добавление нового рецепта
         binding.addRecipe.setOnClickListener {
+            if (binding.nameEditText.text.isEmpty()) {
+                binding.nameRecipeWarning.text = "Введите название"
+                binding.nameRecipeWarning.height = 50
+            }
+            if (isIngredientsEmpty()) {
+                binding.ingredientsWarning.height = 50
+            } else {
+                binding.ingredientsWarning.height = 0
+            }
             viewModel.checkNameDuplicate(binding.nameEditText.text.toString())
-            viewModel.duplicateName.observe(viewLifecycleOwner, Observer { duplicate ->
-                if (duplicate!!) {
-                    binding.nameRecipeWarning.height = 50
-                } else {
-                    viewModel.onSave(binding.nameEditText.text.toString(), binding.stepsEditText.text.toString())
-                }
-            })
         }
+
+        viewModel.canSave.observe(viewLifecycleOwner, Observer { canSave ->
+            if (canSave!!) {
+                viewModel.onSave(
+                    binding.nameEditText.text.toString(),
+                    binding.stepsEditText.text.toString()
+                )
+            }
+        })
+
+        viewModel.duplicateName.observe(viewLifecycleOwner, Observer { duplicate ->
+            if (duplicate!!) {
+                binding.nameRecipeWarning.text = "Такое название уже существует"
+                binding.nameRecipeWarning.height = 50
+            } else {
+                binding.nameRecipeWarning.height = 0
+            }
+        })
+
+        binding.nameEditText.doAfterTextChanged {
+            if (binding.nameEditText.text.isNullOrBlank()) {
+                binding.nameRecipeWarning.text = "Введите название"
+                binding.nameRecipeWarning.height = 50
+            } else {
+                binding.nameRecipeWarning.height = 0
+            }
+        }
+
         viewModel.recipeId.observe(viewLifecycleOwner, Observer { id ->
             if (id != -1L) {
                 viewModel.onSaveIngredients(id)
@@ -57,18 +89,31 @@ class AddRecipeFragment : Fragment() {
             if (shouldNavigate!!) {
                 this.findNavController().navigate(
                     AddRecipeFragmentDirections
-                        .actionAddRecipeFragmentToRecipesFragment())
+                        .actionAddRecipeFragmentToRecipesFragment()
+                )
                 viewModel.doneNavigating()
             }
         })
 
         // добавление нового ингредиента
         binding.addIngredientButton.setOnClickListener {
+            if (binding.columnNameTextView.height == 0) {
+                binding.columnNameTextView.height = 60
+                binding.columnQuantityTextView.height = 60
+            }
             viewModel.ingredients.add(Ingredient())
             adapter.data = viewModel.ingredients
         }
 
         return binding.root
+    }
+
+    private fun isIngredientsEmpty(): Boolean {
+        viewModel.ingredients.forEach { ingredient ->
+            if (ingredient.name.isEmpty() || ingredient.quantity.isEmpty())
+                return true
+        }
+        return false
     }
 
 }

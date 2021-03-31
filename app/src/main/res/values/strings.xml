@@ -28,6 +28,7 @@
     <string name="adding_ingredient">Добавление ингредиента</string>
     <string name="cooking">Приготовление</string>
     <string name="edit">Редактировать</string>
+    <string name="edit_recipe">Редактирование рецепта</string>
 
     <!-- Recipe info -->
 

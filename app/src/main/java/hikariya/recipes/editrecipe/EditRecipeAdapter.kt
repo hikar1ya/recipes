@@ -1,4 +1,4 @@
-package hikariya.recipes.addrecipe
+package hikariya.recipes.editrecipe
 
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import hikariya.recipes.R
 import hikariya.recipes.database.Ingredient
 
-class AddRecipeViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class EditRecipeViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val nameIngredient: EditText = itemView.findViewById(R.id.nameIngredientEditText)
     private val quantityIngredient: EditText = itemView.findViewById(R.id.quantityIngredientEditText)
     val buttonDelete: ImageButton = itemView.findViewById(R.id.buttonDelete)
@@ -19,20 +19,20 @@ class AddRecipeViewHolder private constructor(itemView: View) : RecyclerView.Vie
         nameIngredient.setText(item.name)
         nameIngredient.doAfterTextChanged { item.name = nameIngredient.text.toString() }
         quantityIngredient.setText(item.quantity)
-        quantityIngredient.doAfterTextChanged { item.quantity = quantityIngredient.text.toString() }
+        nameIngredient.doAfterTextChanged { item.quantity = quantityIngredient.text.toString() }
     }
 
     companion object {
-        fun from(parent: ViewGroup): AddRecipeViewHolder {
+        fun from(parent: ViewGroup): EditRecipeViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
             val view = layoutInflater
                 .inflate(R.layout.list_item_ingredient_add, parent, false)
-            return AddRecipeViewHolder(view)
+            return EditRecipeViewHolder(view)
         }
     }
 }
 
-class AddRecipeAdapter : RecyclerView.Adapter<AddRecipeViewHolder>() {
+class EditRecipeAdapter : RecyclerView.Adapter<EditRecipeViewHolder>() {
 
     var data = arrayListOf<Ingredient>()
         set(value) {
@@ -40,11 +40,11 @@ class AddRecipeAdapter : RecyclerView.Adapter<AddRecipeViewHolder>() {
             notifyDataSetChanged()
         }
 
-    lateinit var viewModel: AddRecipeViewModel
+    lateinit var viewModel: EditRecipeViewModel
 
     override fun getItemCount() = data.size
 
-    override fun onBindViewHolder(holder: AddRecipeViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: EditRecipeViewHolder, position: Int) {
         val item = data[position]
         holder.bind(item)
         holder.buttonDelete.setOnClickListener {
@@ -53,7 +53,7 @@ class AddRecipeAdapter : RecyclerView.Adapter<AddRecipeViewHolder>() {
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddRecipeViewHolder {
-        return AddRecipeViewHolder.from(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EditRecipeViewHolder {
+        return EditRecipeViewHolder.from(parent)
     }
 }

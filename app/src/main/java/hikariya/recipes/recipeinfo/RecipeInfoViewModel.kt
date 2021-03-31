@@ -27,6 +27,10 @@ class RecipeInfoViewModel(val recipeId: Long,
     val navigateToRecipes: LiveData<Boolean>
         get() = _navigateToRecipes
 
+    private val _navigateToEditRecipe = MutableLiveData<Boolean>()
+    val navigateToEditRecipe: LiveData<Boolean>
+        get() = _navigateToEditRecipe
+
     init {
         initializeRecipe()
     }
@@ -61,6 +65,12 @@ class RecipeInfoViewModel(val recipeId: Long,
     private suspend fun delete() {
         withContext(Dispatchers.IO) {
             dao.delete(recipe)
+        }
+    }
+
+    fun onEdit() {
+        uiScope.launch {
+            _navigateToEditRecipe.value = true
         }
     }
 

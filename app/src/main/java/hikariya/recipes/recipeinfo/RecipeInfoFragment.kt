@@ -63,6 +63,15 @@ class RecipeInfoFragment : Fragment() {
             }
         })
 
+        viewModel.navigateToEditRecipe.observe(viewLifecycleOwner, Observer { should ->
+            if (should!!) {
+                this.findNavController().navigate(
+                    RecipeInfoFragmentDirections
+                        .actionRecipeInfoFragmentToEditRecipeFragment(recipeId)
+                )
+            }
+        })
+
         setHasOptionsMenu(true)
         return binding.root
     }
@@ -75,6 +84,7 @@ class RecipeInfoFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.delete -> viewModel.onDelete()
+            R.id.edit -> viewModel.onEdit()
         }
         return super.onOptionsItemSelected(item)
     }

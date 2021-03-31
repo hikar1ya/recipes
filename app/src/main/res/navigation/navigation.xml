@@ -44,6 +44,24 @@
             app:destination="@id/recipesFragment"
             app:enterAnim="@anim/slide_in_right"
             app:popEnterAnim="@anim/slide_in_left" />
+        <action
+            android:id="@+id/action_recipeInfoFragment_to_editRecipeFragment"
+            app:destination="@id/editRecipeFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_in_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/editRecipeFragment"
+        android:name="hikariya.recipes.editrecipe.EditRecipeFragment"
+        android:label="@string/edit_recipe">
+        <argument
+            android:name="recipeId"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_editRecipeFragment_to_recipeInfoFragment"
+            app:destination="@id/recipeInfoFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_in_left" />
     </fragment>
 
 </navigation>

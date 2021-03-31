@@ -31,6 +31,10 @@ class AddRecipeViewModel(
     val recipeId: LiveData<Long>
         get() = _recipeId
 
+    private val _canSave = MutableLiveData<Boolean>()
+    val canSave: LiveData<Boolean>
+        get() = _canSave
+
     fun doneNavigating() {
         _navigateToRecipes.value = false
     }
@@ -39,9 +43,8 @@ class AddRecipeViewModel(
         uiScope.launch {
             val recipe = getByName(name)
             val duplicate = recipe != null
-            if (duplicate != _duplicateName.value) {
-                _duplicateName.value = duplicate
-            }
+            _duplicateName.value = duplicate
+            _canSave.value = !duplicate
         }
     }
 
