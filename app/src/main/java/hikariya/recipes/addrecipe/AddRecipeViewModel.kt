@@ -27,22 +27,29 @@ class AddRecipeViewModel(
 
     var ingredients = ArrayList<Ingredient>()
 
+    private val _recipeId = MutableLiveData<Long>()
+    val recipeId: LiveData<Long>
+        get() = _recipeId
+
     fun doneNavigating() {
         _navigateToRecipes.value = false
     }
 
-//    fun checkNameDuplicate(name: String) {
-//        uiScope.launch {
-//            val recipe = getByName(name)
-//            _duplicateName.value = recipe != null
-//        }
-//    }
-//
-//    private suspend fun getByName(name: String): Recipe? {
-//        return withContext(Dispatchers.IO) {
-//            dao.getByName(name)
-//        }
-//    }
+    fun checkNameDuplicate(name: String) {
+        uiScope.launch {
+            val recipe = getByName(name)
+            val duplicate = recipe != null
+            if (duplicate != _duplicateName.value) {
+                _duplicateName.value = duplicate
+            }
+        }
+    }
+
+    private suspend fun getByName(name: String): Recipe? {
+        return withContext(Dispatchers.IO) {
+            dao.getByName(name)
+        }
+    }
 
     fun onSave(name: String, steps: String) {
         uiScope.launch {
@@ -50,9 +57,32 @@ class AddRecipeViewModel(
             recipe.name = name
             recipe.steps = steps
             insert(recipe)
+            initializeRecipeId(name)
         }
-        _navigateToRecipes.value = true
     }
+
+    fun onSaveIngredients(id: Long) {
+        uiScope.launch {
+            ingredients.forEach { i -> i.recipe_id = id }
+            ingredients.forEach { i ->
+                insertIngredient(i)
+            }
+            _navigateToRecipes.value = true
+        }
+    }
+
+    private fun initializeRecipeId(name: String) {
+        uiScope.launch {
+            _recipeId.value = getIdRecipeFromDatabase(name)
+        }
+    }
+
+    private suspend fun getIdRecipeFromDatabase(name: String): Long {
+        return withContext(Dispatchers.IO) {
+            dao.getByName(name)?.id
+        }!!
+    }
+
 
 //    fun getId() {
 //        uiScope.launch {
@@ -76,11 +106,11 @@ class AddRecipeViewModel(
 //        })
 //    }
 //
-//    private suspend fun insertIngredient(ingredient: Ingredient) {
-//        withContext(Dispatchers.IO) {
-//            dao.insertIngredient(ingredient)
-//        }
-//    }
+    private suspend fun insertIngredient(ingredient: Ingredient) {
+        withContext(Dispatchers.IO) {
+            dao.insertIngredient(ingredient)
+        }
+    }
 
     private suspend fun insert(recipe: Recipe) {
         withContext(Dispatchers.IO) {

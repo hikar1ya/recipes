@@ -35,19 +35,22 @@ class AddRecipeFragment : Fragment() {
         adapter.viewModel = viewModel
         binding.ingredientsList.adapter = adapter
 
-
         // добавление нового рецепта
         binding.addRecipe.setOnClickListener {
-            viewModel.onSave(binding.nameEditText.text.toString(), binding.stepsEditText.text.toString())
-//            viewModel.checkNameDuplicate(binding.nameEditText.toString())
-//            viewModel.duplicateName.observe(viewLifecycleOwner, Observer { duplicate ->
-//                if (duplicate!!) {
-//                    binding.nameRecipeWarning.height = 50
-//                } else {
-//                    viewModel.onSave(binding.nameEditText.text.toString())
-//                }
-//            })
+            viewModel.checkNameDuplicate(binding.nameEditText.text.toString())
+            viewModel.duplicateName.observe(viewLifecycleOwner, Observer { duplicate ->
+                if (duplicate!!) {
+                    binding.nameRecipeWarning.height = 50
+                } else {
+                    viewModel.onSave(binding.nameEditText.text.toString(), binding.stepsEditText.text.toString())
+                }
+            })
         }
+        viewModel.recipeId.observe(viewLifecycleOwner, Observer { id ->
+            if (id != -1L) {
+                viewModel.onSaveIngredients(id)
+            }
+        })
 
         // навигация на главный экран после добавления рецепта
         viewModel.navigateToRecipes.observe(viewLifecycleOwner, Observer { shouldNavigate ->

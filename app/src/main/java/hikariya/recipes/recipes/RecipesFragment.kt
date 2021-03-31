@@ -1,12 +1,11 @@
 package hikariya.recipes.recipes
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.iterator
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -45,7 +44,8 @@ class RecipesFragment : Fragment() {
             if (recipe != null) {
                 this.findNavController().navigate(
                     RecipesFragmentDirections
-                        .actionRecipesFragmentToRecipeInfoFragment(recipe.id, recipe.name))
+                        .actionRecipesFragmentToRecipeInfoFragment(recipe.id)
+                )
                 viewModel.doneNavigating()
             }
         })

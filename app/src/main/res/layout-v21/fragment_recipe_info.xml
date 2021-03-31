@@ -3,48 +3,54 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/recipeNameInfo"
-            style="@style/textViewStyle"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Название"
-            android:textSize="@dimen/name_text_size"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/buttonsLinearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recipeNameInfo">
+            <TextView
+                android:id="@+id/recipeNameInfo"
+                style="@style/textViewStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Название"
+                android:textSize="@dimen/name_text_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <Button
-                android:id="@+id/ingredientsInfoButton"
-                style="@style/infoButtonStyle"
-                android:text="@string/ingredients"/>
+            <LinearLayout
+                android:id="@+id/buttonsLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/recipeNameInfo">
 
-            <Button
-                android:id="@+id/cookingInfoButton"
-                android:text="@string/cooking"
-                style="@style/infoButtonStyle"/>
+                <Button
+                    android:id="@+id/ingredientsInfoButton"
+                    style="@style/infoButtonStyle"
+                    android:text="@string/ingredients" />
 
-        </LinearLayout>
+                <Button
+                    android:id="@+id/cookingInfoButton"
+                    style="@style/infoButtonStyle"
+                    android:text="@string/cooking" />
 
-        <TextView
-            android:id="@+id/contentText"
-            style="@style/textViewStyle"
-            android:text="TextView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/buttonsLinearLayout" />
+            </LinearLayout>
 
+            <TextView
+                android:id="@+id/contentText"
+                style="@style/textViewStyle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/buttonsLinearLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
 
 </layout>

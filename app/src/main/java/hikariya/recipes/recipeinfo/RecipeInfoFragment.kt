@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import hikariya.recipes.R
 import hikariya.recipes.database.RecipesDatabase
@@ -33,17 +34,23 @@ class RecipeInfoFragment : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(RecipeInfoViewModel::class.java)
 
-        binding.recipeNameInfo.text = args.name
+        viewModel.getRecipe(recipeId)
 
-        binding.ingredientsInfoButton.setOnClickListener{
-            binding.contentText?.text = "Ингредиенты"
-        }
+        viewModel.shouldBind.observe(viewLifecycleOwner, Observer { should ->
+            if (should!!) {
+                val ingredients : String
 
-        binding.cookingInfoButton.setOnClickListener{
-            binding.contentText?.text = "Приготовление"
-        }
+                binding.recipeNameInfo.text = viewModel.recipe.name
+                binding.ingredientsInfoButton.setOnClickListener {
+                    binding.contentText?.text = "Ингредиенты"
+                }
 
+                binding.cookingInfoButton.setOnClickListener {
+                    binding.contentText?.text = viewModel.recipe.steps
+                }
+            }
+
+        })
         return binding.root
     }
-
 }
