@@ -1,40 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:id="@+id/recipe_list_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="5dp">
 
-    <EditText
-        android:id="@+id/nameIngredientEditText"
+    <TextView
+        android:id="@+id/nameIngredientTextView"
         style="@style/editTextStyle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/buttonDelete"
         android:layout_width="wrap_content"
         android:width="200dp"
-        tools:text="@string/name"
-
         />
 
-    <EditText
-        android:id="@+id/quantityIngredientEditText"
+    <TextView
+        android:id="@+id/quantityIngredientTextView"
         style="@style/editTextStyle"
-        app:layout_constraintBottom_toBottomOf="@id/buttonDelete"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@id/nameIngredientEditText"
+        app:layout_constraintStart_toEndOf="@id/nameIngredientTextView"
         android:layout_width="wrap_content"
         android:width="120dp"
-        tools:text="@string/quantity"
         />
 
-    <ImageButton
-        android:id="@+id/buttonDelete"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="#00FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_delete" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

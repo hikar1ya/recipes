@@ -83,29 +83,6 @@ class AddRecipeViewModel(
         }!!
     }
 
-
-//    fun getId() {
-//        uiScope.launch {
-//            val recipes = getRecipes()
-//        }
-//    }
-//
-//    private suspend fun getRecipes(): LiveData<List<Recipe>> {
-//        return withContext(Dispatchers.IO) {
-//            dao.getAllRecipes()
-//        }
-//    }
-//
-//    @RequiresApi(Build.VERSION_CODES.N)
-//    fun saveIngredients(id: Long) {
-//        ingredients.forEach(Consumer { ingredient ->
-//            uiScope.launch {
-//                ingredient.recipe_id = id
-//                insertIngredient(ingredient)
-//            }
-//        })
-//    }
-//
     private suspend fun insertIngredient(ingredient: Ingredient) {
         withContext(Dispatchers.IO) {
             dao.insertIngredient(ingredient)

@@ -39,6 +39,11 @@
         <argument
             android:name="recipeId"
             app:argType="long" />
+        <action
+            android:id="@+id/action_recipeInfoFragment_to_recipesFragment"
+            app:destination="@id/recipesFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:popEnterAnim="@anim/slide_in_left" />
     </fragment>
 
 </navigation>

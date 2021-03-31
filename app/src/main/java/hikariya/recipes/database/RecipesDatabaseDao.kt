@@ -1,10 +1,7 @@
 package hikariya.recipes.database
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 
 @Dao
 interface RecipesDatabaseDao {
@@ -13,6 +10,9 @@ interface RecipesDatabaseDao {
 
     @Update
     fun update(recipe: Recipe)
+
+    @Delete
+    fun delete(recipe: Recipe)
 
     @Query("SELECT * FROM recipe_table WHERE id = :key")
     fun get(key: Long): Recipe?
@@ -30,5 +30,5 @@ interface RecipesDatabaseDao {
     fun updateIngredient(ingredient: Ingredient)
 
     @Query("SELECT * FROM ingredient_table WHERE recipe_id = :key")
-    fun getIngredients(key: Long): LiveData<List<Ingredient>>
+    fun getIngredients(key: Long): List<Ingredient>
 }

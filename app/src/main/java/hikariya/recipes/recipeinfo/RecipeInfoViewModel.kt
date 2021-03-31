@@ -3,6 +3,7 @@ package hikariya.recipes.recipeinfo
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import hikariya.recipes.database.Ingredient
 import hikariya.recipes.database.Recipe
 import hikariya.recipes.database.RecipesDatabaseDao
 import kotlinx.coroutines.*
@@ -15,23 +16,52 @@ class RecipeInfoViewModel(val recipeId: Long,
 
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    private var _shouldBind = MutableLiveData<Boolean>()
+    var recipe = Recipe()
+    var ingredients = ArrayList<Ingredient>()
+
+    private val _shouldBind = MutableLiveData<Boolean>()
     val shouldBind: LiveData<Boolean>
         get() = _shouldBind
 
-    var recipe = Recipe()
+    private val _navigateToRecipes = MutableLiveData<Boolean>()
+    val navigateToRecipes: LiveData<Boolean>
+        get() = _navigateToRecipes
 
-    fun getRecipe(id: Long) {
+    init {
+        initializeRecipe()
+    }
+
+    private fun initializeRecipe() {
         uiScope.launch {
-            onGetRecipe(id)
+            getRecipeDatabase()
+            getIngredientsDatabase()
+            _shouldBind.value = true
         }
     }
 
-    private suspend fun onGetRecipe(id: Long) {
+    private suspend fun getIngredientsDatabase() {
         withContext(Dispatchers.IO) {
-            recipe = dao.get(id)!!
+            ingredients = dao.getIngredients(recipeId) as ArrayList<Ingredient>
         }
-        _shouldBind.value = true
+    }
+
+    private suspend fun getRecipeDatabase() {
+        withContext(Dispatchers.IO) {
+            recipe = dao.get(recipeId)!!
+        }
+    }
+
+    fun onDelete() {
+        uiScope.launch {
+            delete()
+            _navigateToRecipes.value = true
+        }
+    }
+
+    private suspend fun delete() {
+        withContext(Dispatchers.IO) {
+            dao.delete(recipe)
+        }
     }
 
     override fun onCleared() {

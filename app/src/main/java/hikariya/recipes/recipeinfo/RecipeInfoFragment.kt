@@ -1,13 +1,12 @@
 package hikariya.recipes.recipeinfo
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import hikariya.recipes.R
 import hikariya.recipes.database.RecipesDatabase
 import hikariya.recipes.databinding.FragmentRecipeInfoBinding
@@ -34,23 +33,49 @@ class RecipeInfoFragment : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(RecipeInfoViewModel::class.java)
 
-        viewModel.getRecipe(recipeId)
+        val adapter = RecipeInfoAdapter()
+        binding.contentIngredients.adapter = adapter
 
         viewModel.shouldBind.observe(viewLifecycleOwner, Observer { should ->
             if (should!!) {
-                val ingredients : String
-
                 binding.recipeNameInfo.text = viewModel.recipe.name
+                binding.contentText.text = viewModel.recipe.steps
+                adapter.data = viewModel.ingredients
                 binding.ingredientsInfoButton.setOnClickListener {
-                    binding.contentText?.text = "Ингредиенты"
+                    binding.contentText.visibility = View.INVISIBLE
+                    binding.contentIngredients.visibility = View.VISIBLE
                 }
 
                 binding.cookingInfoButton.setOnClickListener {
-                    binding.contentText?.text = viewModel.recipe.steps
+                    binding.contentText.visibility = View.VISIBLE
+                    binding.contentIngredients.visibility = View.INVISIBLE
                 }
             }
 
         })
+
+        viewModel.navigateToRecipes.observe(viewLifecycleOwner, Observer { should ->
+            if (should!!) {
+                this.findNavController().navigate(
+                    RecipeInfoFragmentDirections
+                        .actionRecipeInfoFragmentToRecipesFragment()
+                )
+            }
+        })
+
+        setHasOptionsMenu(true)
         return binding.root
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater.inflate(R.menu.recipe_info_menu, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.delete -> viewModel.onDelete()
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
