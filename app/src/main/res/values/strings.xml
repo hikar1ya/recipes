@@ -29,6 +29,7 @@
     <string name="cooking">Приготовление</string>
     <string name="edit">Редактировать</string>
     <string name="edit_recipe">Редактирование рецепта</string>
+    <string name="filter">Фильтр</string>
 
     <!-- Recipe info -->
 

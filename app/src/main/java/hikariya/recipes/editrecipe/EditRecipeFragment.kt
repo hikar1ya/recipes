@@ -10,7 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import hikariya.recipes.R
-import hikariya.recipes.addrecipe.AddRecipeFragmentDirections
 import hikariya.recipes.database.Ingredient
 import hikariya.recipes.database.RecipesDatabase
 import hikariya.recipes.databinding.FragmentEditRecipeBinding
@@ -18,14 +17,15 @@ import hikariya.recipes.recipeinfo.RecipeInfoFragmentArgs
 
 class EditRecipeFragment : Fragment() {
 
-    private lateinit var viewModel : EditRecipeViewModel
+    private lateinit var viewModel: EditRecipeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val binding: FragmentEditRecipeBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_edit_recipe, container, false)
+            inflater, R.layout.fragment_edit_recipe, container, false
+        )
 
         val application = requireNotNull(this.activity).application
         val args = RecipeInfoFragmentArgs.fromBundle(requireArguments())
@@ -39,31 +39,65 @@ class EditRecipeFragment : Fragment() {
         adapter.viewModel = viewModel
         binding.ingredientsList.adapter = adapter
 
+        viewModel.shouldBind.observe(viewLifecycleOwner, Observer { should ->
+            if (should!!) {
+                binding.nameEditText.setText(viewModel.recipe.name)
+                adapter.data = viewModel.ingredients
+                binding.stepsEditText.setText(viewModel.recipe.steps)
+            }
+        })
+
         binding.editRecipeButton.setOnClickListener {
-            viewModel.checkNameDuplicate(binding.nameEditText.text.toString())
-            viewModel.duplicateName.observe(viewLifecycleOwner, Observer { duplicate ->
-                if (duplicate!!) {
-                    binding.nameRecipeWarning.height = 50
-                } else {
-                    viewModel.onSave(binding.nameEditText.text.toString(), binding.stepsEditText.text.toString())
-                    viewModel.onSaveIngredients()
-                }
-            })
+            if (binding.nameEditText.text.isEmpty()) {
+                binding.nameRecipeWarning.text = "Введите название"
+                binding.nameRecipeWarning.height = 50
+            }
+            if (isIngredientsEmpty()) {
+                binding.ingredientsWarning.height = 50
+            } else {
+                binding.ingredientsWarning.height = 0
+            }
+            if (viewModel.recipe.name != binding.nameEditText.text.toString()) {
+                viewModel.checkNameDuplicate(binding.nameEditText.text.toString())
+            }
         }
 
-        viewModel.navigateToRecipes.observe(viewLifecycleOwner, Observer { shouldNavigate ->
+        viewModel.canSave.observe(viewLifecycleOwner, Observer { canSave ->
+            if (canSave!!) {
+                viewModel.onSave(
+                    binding.nameEditText.text.toString(),
+                    binding.stepsEditText.text.toString()
+                )
+            }
+        })
+
+        viewModel.navigateToRecipeInfo.observe(viewLifecycleOwner, Observer { shouldNavigate ->
             if (shouldNavigate!!) {
                 this.findNavController().navigate(
-                    AddRecipeFragmentDirections
-                        .actionAddRecipeFragmentToRecipesFragment())
+                    EditRecipeFragmentDirections.actionEditRecipeFragmentToRecipeInfoFragment(
+                        recipeId
+                    )
+                )
             }
         })
 
         binding.addIngredientButton.setOnClickListener {
+            if (binding.columnNameTextView.height == 0) {
+                binding.columnNameTextView.height = 60
+                binding.columnQuantityTextView.height = 60
+            }
             viewModel.ingredients.add(Ingredient())
             adapter.data = viewModel.ingredients
         }
 
         return binding.root
+    }
+
+    private fun isIngredientsEmpty(): Boolean {
+        viewModel.ingredients.forEach { ingredient ->
+            if (ingredient.name.isEmpty() || ingredient.quantity.isEmpty())
+                return true
+        }
+        return false
     }
 }

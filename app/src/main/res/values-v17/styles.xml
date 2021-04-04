@@ -31,6 +31,5 @@
         <item name="backgroundTint">@color/white</item>
         <item name="android:textColor">@color/purple_200</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:background">@color/white</item>
     </style>
 </resources>

@@ -9,7 +9,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/recipeNameInfo"
@@ -31,7 +31,7 @@
                 <Button
                     android:id="@+id/ingredientsInfoButton"
                     style="@style/infoButtonStyle"
-                    android:text="@string/ingredients" />
+                    android:text="@string/ingredients"/>
 
                 <Button
                     android:id="@+id/cookingInfoButton"
@@ -44,19 +44,19 @@
                 android:id="@+id/contentIngredients"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/buttonsLinearLayout"
+                android:visibility="visible"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:visibility="visible"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/buttonsLinearLayout" />
 
             <TextView
                 android:id="@+id/contentText"
                 style="@style/textViewStyle"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/buttonsLinearLayout"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:visibility="invisible"
-                />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/buttonsLinearLayout" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

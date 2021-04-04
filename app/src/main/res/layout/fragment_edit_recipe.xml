@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -30,14 +30,13 @@
 
             <TextView
                 android:id="@+id/nameRecipeWarning"
-                android:text="Такое название уже существует"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/nameEditText"
-                android:height="0dp"
-                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/horizontal_margin"
-                android:textColor="@color/red"/>
+                android:height="0dp"
+                android:textColor="@color/red"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/nameEditText" />
 
             <TextView
                 android:id="@+id/ingredientsTextView"
@@ -54,6 +53,30 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ingredientsTextView" />
 
+            <LinearLayout
+                android:id="@+id/columnName"
+                android:maxHeight="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/addIngredientButton">
+
+                <TextView
+                    android:id="@+id/columnNameTextView"
+                    style="@style/textViewStyle"
+                    android:height="0dp"
+                    android:text="Название"
+                    android:layout_weight="10"/>
+
+                <TextView
+                    android:id="@+id/columnQuantityTextView"
+                    style="@style/textViewStyle"
+                    android:height="0dp"
+                    android:text="Количество"
+                    android:layout_weight="7"/>
+            </LinearLayout>
+
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/ingredientsList"
                 android:layout_width="match_parent"
@@ -61,7 +84,18 @@
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/addIngredientButton" />
+                app:layout_constraintTop_toBottomOf="@id/columnName" />
+
+            <TextView
+                android:id="@+id/ingredientsWarning"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/horizontal_margin"
+                android:height="0dp"
+                android:textColor="@color/red"
+                android:text="Ингредиенты введены неверно"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ingredientsList" />
 
             <TextView
                 android:id="@+id/stepsTextView"
@@ -69,7 +103,7 @@
                 android:text="@string/steps"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ingredientsList" />
+                app:layout_constraintTop_toBottomOf="@id/ingredientsWarning" />
 
             <EditText
                 android:id="@+id/stepsEditText"
@@ -89,5 +123,4 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
 </layout>

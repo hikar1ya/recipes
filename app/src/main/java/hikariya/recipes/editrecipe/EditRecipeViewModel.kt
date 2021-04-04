@@ -25,8 +25,16 @@ class EditRecipeViewModel (
         get() = _duplicateName
 
     private val _navigateToRecipes = MutableLiveData<Boolean>()
-    val navigateToRecipes: LiveData<Boolean>
+    val navigateToRecipeInfo: LiveData<Boolean>
         get() = _navigateToRecipes
+
+    private val _shouldBind = MutableLiveData<Boolean>()
+    val shouldBind: LiveData<Boolean>
+        get() = _shouldBind
+
+    private val _canSave = MutableLiveData<Boolean>()
+    val canSave: LiveData<Boolean>
+        get() = _canSave
 
     init {
         initializeRecipe()
@@ -35,6 +43,20 @@ class EditRecipeViewModel (
     private fun initializeRecipe() {
         uiScope.launch {
             getRecipeDatabase()
+            getIngredientsDatabase()
+            _shouldBind.value = true
+        }
+    }
+
+    private suspend fun getIngredientsDatabase() {
+        withContext(Dispatchers.IO) {
+            ingredients = dao.getIngredients(recipeId) as ArrayList<Ingredient>
+        }
+    }
+
+    private suspend fun getRecipeDatabase() {
+        withContext(Dispatchers.IO) {
+            recipe = dao.get(recipeId)!!
         }
     }
 
@@ -42,9 +64,8 @@ class EditRecipeViewModel (
         uiScope.launch {
             val recipe = getByName(name)
             val duplicate = recipe != null
-            if (duplicate != _duplicateName.value) {
-                _duplicateName.value = duplicate
-            }
+            _duplicateName.value = duplicate
+            _canSave.value = !duplicate
         }
     }
 
@@ -54,6 +75,7 @@ class EditRecipeViewModel (
             recipe.name = name
             recipe.steps = steps
             update(recipe)
+            onSaveIngredients()
         }
     }
 
@@ -63,9 +85,8 @@ class EditRecipeViewModel (
         }
     }
 
-    fun onSaveIngredients() {
+    private fun onSaveIngredients() {
         uiScope.launch {
-            ingredients.forEach { i -> i.recipe_id = recipeId }
             ingredients.forEach { i ->
                 updateIngredient(i)
             }
@@ -85,9 +106,7 @@ class EditRecipeViewModel (
         }
     }
 
-    private suspend fun getRecipeDatabase() {
-        withContext(Dispatchers.IO) {
-            recipe = dao.get(recipeId)!!
-        }
+    fun doneNavigation() {
+        _navigateToRecipes.value = null
     }
 }
