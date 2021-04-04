@@ -56,4 +56,14 @@ class RecipesFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.recipes_menu, menu)
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.filter ->
+                this.findNavController().navigate(
+                    RecipesFragmentDirections.actionRecipesFragmentToFilterFragment()
+                )
+        }
+        return super.onOptionsItemSelected(item)
+    }
 }

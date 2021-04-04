@@ -17,9 +17,6 @@
     <string name="about_text">Книга рецептов. Приложение позволяет создавать и редактировать свои рецепты!</string>
     <string name="about">О приложении</string>
 
-
-    <string name="title_recipes">тут будут рецепты</string>
-
     <string name="save">Сохранить</string>
     <string name="name">Название</string>
     <string name="steps_of_cooking">Шаги приготовления</string>
@@ -30,8 +27,4 @@
     <string name="edit">Редактировать</string>
     <string name="edit_recipe">Редактирование рецепта</string>
     <string name="filter">Фильтр</string>
-
-    <!-- Recipe info -->
-
-
 </resources>

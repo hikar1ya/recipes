@@ -14,6 +14,10 @@
             android:id="@+id/action_recipes_fragment_to_recipe_info_fragment"
             app:destination="@id/recipeInfoFragment" />
 
+        <action
+            android:id="@+id/action_recipesFragment_to_filterFragment"
+            app:destination="@id/filterFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/addRecipeFragment"
@@ -63,5 +67,10 @@
             app:enterAnim="@anim/slide_in_right"
             app:popEnterAnim="@anim/slide_in_left" />
     </fragment>
+    <fragment
+        android:id="@+id/filterFragment"
+        android:name="hikariya.recipes.filter.FilterFragment"
+        android:label="@string/filter"
+        tools:layout="@layout/fragment_filter"/>
 
 </navigation>
