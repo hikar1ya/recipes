@@ -56,10 +56,7 @@ class RecipeInfoFragment : Fragment() {
 
         viewModel.navigateToRecipes.observe(viewLifecycleOwner, Observer { should ->
             if (should!!) {
-                this.findNavController().navigate(
-                    RecipeInfoFragmentDirections
-                        .actionRecipeInfoFragmentToRecipesFragment()
-                )
+                this.findNavController().navigateUp()
                 viewModel.doneNavigating()
             }
         })

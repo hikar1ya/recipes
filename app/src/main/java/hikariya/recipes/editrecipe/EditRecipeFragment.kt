@@ -72,9 +72,7 @@ class EditRecipeFragment : Fragment() {
 
         viewModel.navigateToRecipeInfo.observe(viewLifecycleOwner, Observer { shouldNavigate ->
             if (shouldNavigate!!) {
-                this.findNavController().navigate(
-                    EditRecipeFragmentDirections.actionEditRecipeFragmentToRecipeInfoFragment()
-                )
+                this.findNavController().navigateUp()
                 viewModel.doneNavigation()
             }
         })

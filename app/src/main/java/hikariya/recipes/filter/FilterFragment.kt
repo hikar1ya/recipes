@@ -46,9 +46,7 @@ class FilterFragment : Fragment() {
             if (viewModel.selectedIngredients.isEmpty()) {
                 Data.filter = null
             }
-            this.findNavController().navigate(
-                FilterFragmentDirections.actionFilterFragmentToRecipesFragment()
-            )
+            this.findNavController().navigateUp()
         }
 
         return binding.root

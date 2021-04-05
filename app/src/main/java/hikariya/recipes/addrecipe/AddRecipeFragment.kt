@@ -89,10 +89,7 @@ class AddRecipeFragment : Fragment() {
         // навигация на главный экран после добавления рецепта
         viewModel.navigateToRecipes.observe(viewLifecycleOwner, Observer { shouldNavigate ->
             if (shouldNavigate!!) {
-                this.findNavController().navigate(
-                    AddRecipeFragmentDirections
-                        .actionAddRecipeFragmentToRecipesFragment()
-                )
+                this.findNavController().navigateUp()
                 viewModel.doneNavigating()
             }
         })
