@@ -71,7 +71,6 @@ class EditRecipeViewModel (
 
     fun onSave(name: String, steps: String) {
         uiScope.launch {
-            val recipe = Recipe()
             recipe.name = name
             recipe.steps = steps
             update(recipe)
