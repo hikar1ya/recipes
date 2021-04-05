@@ -8,10 +8,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import hikariya.recipes.Data
 import hikariya.recipes.R
 import hikariya.recipes.database.RecipesDatabase
 import hikariya.recipes.databinding.FragmentFilterBinding
-import hikariya.recipes.recipeinfo.RecipeInfoAdapter
 
 class FilterFragment : Fragment() {
 
@@ -31,13 +32,21 @@ class FilterFragment : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory)
             .get(FilterViewModel::class.java)
 
-        val adapter = RecipeInfoAdapter()
+        val adapter = FilterAdapter()
         binding.ingredientsList.adapter = adapter
+        adapter.viewModel = viewModel
 
         viewModel.ingredients.observe(viewLifecycleOwner, Observer { ingredientsList ->
             if (ingredientsList != null)
                 adapter.data = ingredientsList
         })
+
+        binding.saveFilterButton.setOnClickListener {
+            Data.filter = viewModel.selectedIngredients
+            this.findNavController().navigate(
+                FilterFragmentDirections.actionFilterFragmentToRecipesFragment()
+            )
+        }
 
         return binding.root
     }

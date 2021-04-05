@@ -32,6 +32,9 @@ interface RecipesDatabaseDao {
     @Query("SELECT * FROM ingredient_table WHERE recipe_id = :key")
     fun getIngredients(key: Long): List<Ingredient>
 
-    @Query("SELECT * FROM ingredient_table ORDER BY id DESC")
-    fun getAllIngredients(): LiveData<List<Ingredient>>
+    @Query("SELECT DISTINCT LOWER(name) FROM ingredient_table ORDER BY id DESC")
+    fun getAllIngredients(): LiveData<List<String>>
+
+    @Query("SELECT * FROM recipe_table AS rt JOIN ingredient_table AS it ON rt.id = it.recipe_id WHERE LOWER(it.name) IN (:nameIngredient)")
+    fun getRecipeFilterIngredients(nameIngredient: ArrayList<String>): List<Recipe>
 }

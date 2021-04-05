@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import hikariya.recipes.Data
 import hikariya.recipes.R
 import hikariya.recipes.database.RecipesDatabase
 import hikariya.recipes.databinding.FragmentRecipesBinding
@@ -34,8 +35,19 @@ class RecipesFragment : Fragment() {
         adapter.viewModel = viewModel
 
         viewModel.recipes.observe(viewLifecycleOwner, Observer { recipesList ->
-            if (recipesList != null)
-                adapter.data = recipesList
+            if (recipesList != null) {
+                if (Data.filter == null) {
+                    adapter.data = recipesList
+                } else {
+                    viewModel.getFilteredRecipes(Data.filter)
+                }
+            }
+        })
+
+        viewModel.filteredRecipes.observe(viewLifecycleOwner, Observer { recipesList ->
+            if (recipesList) {
+                adapter.data = viewModel.filtered
+            }
         })
 
         viewModel.navigateToRecipeInfo.observe(viewLifecycleOwner, Observer { recipe ->

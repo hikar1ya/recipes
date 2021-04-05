@@ -17,6 +17,8 @@ class FilterViewModel (
 
     val ingredients = dao.getAllIngredients()
 
+    val selectedIngredients : ArrayList<String> = ArrayList()
+
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()

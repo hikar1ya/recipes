@@ -6,10 +6,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import hikariya.recipes.database.Recipe
 import hikariya.recipes.database.RecipesDatabaseDao
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import java.util.*
 
 /**
  * ViewModel для RecipesFragment
@@ -28,6 +26,13 @@ class RecipesViewModel(
 
     val recipes = dao.getAllRecipes()
 
+    var filtered : List<Recipe> = emptyList()
+
+    private val _filteredRecipes = MutableLiveData<Boolean>()
+    val filteredRecipes: LiveData<Boolean>
+        get() = _filteredRecipes
+
+
     fun openRecipeInfo(recipe: Recipe) {
         uiScope.launch {
             _navigateToRecipeInfo.value = recipe
@@ -36,6 +41,20 @@ class RecipesViewModel(
 
     fun doneNavigating() {
         _navigateToRecipeInfo.value = null
+    }
+
+    fun getFilteredRecipes(array: ArrayList<String>) {
+        uiScope.launch {
+            getFilteredRecipesDatabase(array)
+            _filteredRecipes.value = true
+        }
+    }
+
+    private suspend fun getFilteredRecipesDatabase(array: ArrayList<String>) {
+        withContext(Dispatchers.IO) {
+            filtered = dao.getRecipeFilterIngredients(array)
+            //filteredRecipes = dao.getRecipeFilterIngredients(array)
+        }
     }
 
     override fun onCleared() {
