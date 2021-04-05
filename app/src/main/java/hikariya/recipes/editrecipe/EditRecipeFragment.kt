@@ -9,11 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import hikariya.recipes.Data
 import hikariya.recipes.R
 import hikariya.recipes.database.Ingredient
 import hikariya.recipes.database.RecipesDatabase
 import hikariya.recipes.databinding.FragmentEditRecipeBinding
-import hikariya.recipes.recipeinfo.RecipeInfoFragmentArgs
 
 class EditRecipeFragment : Fragment() {
 
@@ -28,8 +28,7 @@ class EditRecipeFragment : Fragment() {
         )
 
         val application = requireNotNull(this.activity).application
-        val args = RecipeInfoFragmentArgs.fromBundle(requireArguments())
-        val recipeId = args.recipeId
+        val recipeId = Data.recipeId
         val dao = RecipesDatabase.getInstance(application).getRecipesDatabaseDao()
         val viewModelFactory = EditRecipeVIewModelFactory(recipeId, dao)
         viewModel = ViewModelProvider(this, viewModelFactory)
@@ -74,9 +73,7 @@ class EditRecipeFragment : Fragment() {
         viewModel.navigateToRecipeInfo.observe(viewLifecycleOwner, Observer { shouldNavigate ->
             if (shouldNavigate!!) {
                 this.findNavController().navigate(
-                    EditRecipeFragmentDirections.actionEditRecipeFragmentToRecipeInfoFragment(
-                        recipeId
-                    )
+                    EditRecipeFragmentDirections.actionEditRecipeFragmentToRecipeInfoFragment()
                 )
             }
         })

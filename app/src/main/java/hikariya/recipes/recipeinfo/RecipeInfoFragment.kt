@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import hikariya.recipes.Data
 import hikariya.recipes.R
 import hikariya.recipes.database.RecipesDatabase
 import hikariya.recipes.databinding.FragmentRecipeInfoBinding
@@ -26,8 +27,7 @@ class RecipeInfoFragment : Fragment() {
         )
 
         val application = requireNotNull(this.activity).application
-        val args = RecipeInfoFragmentArgs.fromBundle(requireArguments())
-        val recipeId = args.recipeId
+        val recipeId = Data.recipeId
         val dao = RecipesDatabase.getInstance(application).getRecipesDatabaseDao()
         val viewModelFactory = RecipeInfoViewModelFactory(recipeId, dao)
         viewModel = ViewModelProvider(this, viewModelFactory)
@@ -67,8 +67,9 @@ class RecipeInfoFragment : Fragment() {
             if (should!!) {
                 this.findNavController().navigate(
                     RecipeInfoFragmentDirections
-                        .actionRecipeInfoFragmentToEditRecipeFragment(recipeId)
+                        .actionRecipeInfoFragmentToEditRecipeFragment()
                 )
+                viewModel.doneNavigating()
             }
         })
 

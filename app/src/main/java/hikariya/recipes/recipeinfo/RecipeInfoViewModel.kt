@@ -74,6 +74,10 @@ class RecipeInfoViewModel(val recipeId: Long,
         }
     }
 
+    fun doneNavigating() {
+        _navigateToEditRecipe.value = false
+    }
+
     override fun onCleared() {
         super.onCleared()
         viewModelJob.cancel()

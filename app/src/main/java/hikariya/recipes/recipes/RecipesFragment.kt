@@ -52,9 +52,10 @@ class RecipesFragment : Fragment() {
 
         viewModel.navigateToRecipeInfo.observe(viewLifecycleOwner, Observer { recipe ->
             if (recipe != null) {
+                Data.recipeId = recipe.id
                 this.findNavController().navigate(
                     RecipesFragmentDirections
-                        .actionRecipesFragmentToRecipeInfoFragment(recipe.id)
+                        .actionRecipesFragmentToRecipeInfoFragment()
                 )
                 viewModel.doneNavigating()
             }
