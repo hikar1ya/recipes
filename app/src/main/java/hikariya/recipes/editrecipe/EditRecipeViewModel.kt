@@ -24,9 +24,9 @@ class EditRecipeViewModel (
     val duplicateName: LiveData<Boolean>
         get() = _duplicateName
 
-    private val _navigateToRecipes = MutableLiveData<Boolean>()
+    private val _navigateToRecipeInfo = MutableLiveData<Boolean>()
     val navigateToRecipeInfo: LiveData<Boolean>
-        get() = _navigateToRecipes
+        get() = _navigateToRecipeInfo
 
     private val _shouldBind = MutableLiveData<Boolean>()
     val shouldBind: LiveData<Boolean>
@@ -62,8 +62,8 @@ class EditRecipeViewModel (
 
     fun checkNameDuplicate(name: String) {
         uiScope.launch {
-            val recipe = getByName(name)
-            val duplicate = recipe != null
+            val dupRecipe = getByName(name)
+            val duplicate = (dupRecipe != null) && (name != recipe.name)
             _duplicateName.value = duplicate
             _canSave.value = !duplicate
         }
@@ -90,13 +90,13 @@ class EditRecipeViewModel (
             ingredients.forEach { i ->
                 updateIngredient(i)
             }
-            _navigateToRecipes.value = true
+            _navigateToRecipeInfo.value = true
         }
     }
 
     private suspend fun updateIngredient(ingredient: Ingredient) {
         withContext(Dispatchers.IO) {
-            dao.insertIngredient(ingredient)
+            dao.updateIngredient(ingredient)
         }
     }
 
@@ -107,6 +107,6 @@ class EditRecipeViewModel (
     }
 
     fun doneNavigation() {
-        _navigateToRecipes.value = null
+        _navigateToRecipeInfo.value = false
     }
 }

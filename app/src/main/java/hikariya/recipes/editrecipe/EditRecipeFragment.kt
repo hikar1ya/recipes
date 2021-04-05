@@ -51,13 +51,12 @@ class EditRecipeFragment : Fragment() {
             if (binding.nameEditText.text.isEmpty()) {
                 binding.nameRecipeWarning.text = "Введите название"
                 binding.nameRecipeWarning.height = 50
-            }
-            if (isIngredientsEmpty()) {
-                binding.ingredientsWarning.height = 50
             } else {
-                binding.ingredientsWarning.height = 0
-            }
-            if (viewModel.recipe.name != binding.nameEditText.text.toString()) {
+                if (isIngredientsEmpty()) {
+                    binding.ingredientsWarning.height = 50
+                } else {
+                    binding.ingredientsWarning.height = 0
+                }
                 viewModel.checkNameDuplicate(binding.nameEditText.text.toString())
             }
         }
@@ -76,6 +75,7 @@ class EditRecipeFragment : Fragment() {
                 this.findNavController().navigate(
                     EditRecipeFragmentDirections.actionEditRecipeFragmentToRecipeInfoFragment()
                 )
+                viewModel.doneNavigation()
             }
         })
 

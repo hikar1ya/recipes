@@ -75,6 +75,7 @@ class RecipeInfoViewModel(val recipeId: Long,
     }
 
     fun doneNavigating() {
+        _navigateToRecipes.value = false
         _navigateToEditRecipe.value = false
     }
 

@@ -60,6 +60,7 @@ class RecipeInfoFragment : Fragment() {
                     RecipeInfoFragmentDirections
                         .actionRecipeInfoFragmentToRecipesFragment()
                 )
+                viewModel.doneNavigating()
             }
         })
 
