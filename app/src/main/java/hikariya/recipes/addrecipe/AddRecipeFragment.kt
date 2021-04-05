@@ -36,19 +36,21 @@ class AddRecipeFragment : Fragment() {
         val adapter = AddRecipeAdapter()
         adapter.viewModel = viewModel
         binding.ingredientsList.adapter = adapter
+        adapter.data = viewModel.ingredients
 
         // добавление нового рецепта
         binding.addRecipe.setOnClickListener {
             if (binding.nameEditText.text.isEmpty()) {
                 binding.nameRecipeWarning.text = "Введите название"
                 binding.nameRecipeWarning.height = 50
-            }
-            if (isIngredientsEmpty()) {
-                binding.ingredientsWarning.height = 50
             } else {
-                binding.ingredientsWarning.height = 0
+                if (isIngredientsEmpty()) {
+                    binding.ingredientsWarning.height = 50
+                } else {
+                    binding.ingredientsWarning.height = 0
+                }
+                viewModel.checkNameDuplicate(binding.nameEditText.text.toString())
             }
-            viewModel.checkNameDuplicate(binding.nameEditText.text.toString())
         }
 
         viewModel.canSave.observe(viewLifecycleOwner, Observer { canSave ->

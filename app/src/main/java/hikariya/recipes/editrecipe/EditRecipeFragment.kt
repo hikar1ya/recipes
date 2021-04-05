@@ -37,6 +37,7 @@ class EditRecipeFragment : Fragment() {
         val adapter = EditRecipeAdapter()
         adapter.viewModel = viewModel
         binding.ingredientsList.adapter = adapter
+        adapter.data = viewModel.ingredients
 
         viewModel.shouldBind.observe(viewLifecycleOwner, Observer { should ->
             if (should!!) {
