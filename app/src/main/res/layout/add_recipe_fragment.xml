@@ -93,7 +93,7 @@
                 android:layout_marginHorizontal="@dimen/horizontal_margin"
                 android:height="0dp"
                 android:textColor="@color/red"
-                android:text="Ингредиенты введены неверно"
+                android:text="@string/ingredients_input_error"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ingredientsList" />
 

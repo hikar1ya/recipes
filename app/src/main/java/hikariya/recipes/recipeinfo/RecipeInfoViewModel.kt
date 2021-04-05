@@ -31,11 +31,8 @@ class RecipeInfoViewModel(val recipeId: Long,
     val navigateToEditRecipe: LiveData<Boolean>
         get() = _navigateToEditRecipe
 
-    init {
-        initializeRecipe()
-    }
 
-    private fun initializeRecipe() {
+    fun initializeRecipe() {
         uiScope.launch {
             getRecipeDatabase()
             getIngredientsDatabase()
@@ -77,6 +74,10 @@ class RecipeInfoViewModel(val recipeId: Long,
     fun doneNavigating() {
         _navigateToRecipes.value = false
         _navigateToEditRecipe.value = false
+    }
+
+    fun bindDone() {
+        _shouldBind.value = false
     }
 
     override fun onCleared() {

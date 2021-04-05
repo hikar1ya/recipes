@@ -29,6 +29,9 @@ interface RecipesDatabaseDao {
     @Update
     fun updateIngredient(ingredient: Ingredient)
 
+    @Delete
+    fun deleteIngredient(ingredient: Ingredient)
+
     @Query("SELECT * FROM ingredient_table WHERE recipe_id = :key")
     fun getIngredients(key: Long): List<Ingredient>
 

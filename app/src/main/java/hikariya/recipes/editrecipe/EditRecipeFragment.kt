@@ -56,8 +56,8 @@ class EditRecipeFragment : Fragment() {
                     binding.ingredientsWarning.height = 50
                 } else {
                     binding.ingredientsWarning.height = 0
+                    viewModel.checkNameDuplicate(binding.nameEditText.text.toString())
                 }
-                viewModel.checkNameDuplicate(binding.nameEditText.text.toString())
             }
         }
 

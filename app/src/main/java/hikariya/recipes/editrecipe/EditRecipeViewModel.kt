@@ -19,6 +19,7 @@ class EditRecipeViewModel (
     var recipe = Recipe()
 
     var ingredients = ArrayList<Ingredient>()
+    var ingredientsIds = ArrayList<Long>()
 
     private val _duplicateName = MutableLiveData<Boolean>()
     val duplicateName: LiveData<Boolean>
@@ -51,6 +52,7 @@ class EditRecipeViewModel (
     private suspend fun getIngredientsDatabase() {
         withContext(Dispatchers.IO) {
             ingredients = dao.getIngredients(recipeId) as ArrayList<Ingredient>
+            ingredients.map { i -> i.id }.also { ingredientsIds = it as ArrayList<Long> }
         }
     }
 
@@ -87,7 +89,18 @@ class EditRecipeViewModel (
     private fun onSaveIngredients() {
         uiScope.launch {
             ingredients.forEach { i ->
-                updateIngredient(i)
+                if (ingredientsIds.contains(i.id)) {
+                    ingredientsIds.remove(i.id)
+                    updateIngredient(i)
+                } else {
+                    i.recipe_id = recipeId
+                    insertIngredient(i)
+                }
+            }
+            ingredientsIds.forEach { i ->
+                val ingredient = Ingredient()
+                ingredient.id = i
+                removeIngredient(ingredient)
             }
             _navigateToRecipeInfo.value = true
         }
@@ -99,9 +112,21 @@ class EditRecipeViewModel (
         }
     }
 
+    private suspend fun removeIngredient(ingredient: Ingredient) {
+        withContext(Dispatchers.IO) {
+            dao.deleteIngredient(ingredient)
+        }
+    }
+
     private suspend fun getByName(name: String): Recipe? {
         return withContext(Dispatchers.IO) {
             dao.getByName(name)
+        }
+    }
+
+    private suspend fun insertIngredient(ingredient: Ingredient) {
+        withContext(Dispatchers.IO) {
+            dao.insertIngredient(ingredient)
         }
     }
 

@@ -35,6 +35,7 @@ class RecipeInfoFragment : Fragment() {
 
         val adapter = RecipeInfoAdapter()
         binding.contentIngredients.adapter = adapter
+        viewModel.initializeRecipe()
 
         viewModel.shouldBind.observe(viewLifecycleOwner, Observer { should ->
             if (should!!) {
@@ -50,8 +51,8 @@ class RecipeInfoFragment : Fragment() {
                     binding.contentText.visibility = View.VISIBLE
                     binding.contentIngredients.visibility = View.INVISIBLE
                 }
+                viewModel.bindDone()
             }
-
         })
 
         viewModel.navigateToRecipes.observe(viewLifecycleOwner, Observer { should ->
