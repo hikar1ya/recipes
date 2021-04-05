@@ -39,9 +39,6 @@
         android:name="hikariya.recipes.recipeinfo.RecipeInfoFragment"
         android:label="@string/info"
         tools:layout="@layout/fragment_recipe_info">
-        <argument
-            android:name="recipeId"
-            app:argType="long" />
         <action
             android:id="@+id/action_recipeInfoFragment_to_recipesFragment"
             app:destination="@id/recipesFragment"
@@ -57,9 +54,6 @@
         android:id="@+id/editRecipeFragment"
         android:name="hikariya.recipes.editrecipe.EditRecipeFragment"
         android:label="@string/edit_recipe">
-        <argument
-            android:name="recipeId"
-            app:argType="long" />
         <action
             android:id="@+id/action_editRecipeFragment_to_recipeInfoFragment"
             app:destination="@id/recipeInfoFragment"

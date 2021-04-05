@@ -43,6 +43,9 @@ class FilterFragment : Fragment() {
 
         binding.saveFilterButton.setOnClickListener {
             Data.filter = viewModel.selectedIngredients
+            if (viewModel.selectedIngredients.isEmpty()) {
+                Data.filter = null
+            }
             this.findNavController().navigate(
                 FilterFragmentDirections.actionFilterFragmentToRecipesFragment()
             )
