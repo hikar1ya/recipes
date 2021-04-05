@@ -49,7 +49,7 @@ class EditRecipeFragment : Fragment() {
 
         binding.editRecipeButton.setOnClickListener {
             if (binding.nameEditText.text.isEmpty()) {
-                binding.nameRecipeWarning.text = "Введите название"
+                binding.nameRecipeWarning.text = "Input name"
                 binding.nameRecipeWarning.height = 50
             } else {
                 if (isIngredientsEmpty()) {

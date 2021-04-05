@@ -1,30 +1,25 @@
 <resources>
     <string name="app_name">Recipes</string>
-    <string name="add_recipe">Добавить рецепт</string>
-    <string name="book_of_recipes">Книга рецептов</string>
-    <string name="adding_recipe">Добавление рецепта</string>
-    <!-- Рецепт -->
-    <string name="recipe_name">Название рецепта</string>
-    <string name="ingredients">Ингредиенты</string>
-    <string name="steps">Шаги</string>
-    <!-- Ингридиенты -->
-    <string name="ingredient">Ингредиент</string>
-    <string name="quantity">Количество</string>
-    <string name="add_ingredient">Добавить ингредиент</string>
-
-    <!-- About -->
-    <string name="title_about">О Книге Рецептов</string>
-    <string name="about_text">Книга рецептов. Приложение позволяет создавать и редактировать свои рецепты!</string>
-    <string name="about">О приложении</string>
-
-    <string name="save">Сохранить</string>
-    <string name="name">Название</string>
-    <string name="steps_of_cooking">Шаги приготовления</string>
-    <string name="info">Информация</string>
-    <string name="add">Добавить</string>
-    <string name="adding_ingredient">Добавление ингредиента</string>
-    <string name="cooking">Приготовление</string>
-    <string name="edit">Редактировать</string>
-    <string name="edit_recipe">Редактирование рецепта</string>
-    <string name="filter">Фильтр</string>
+    <string name="add_recipe">Add recipe</string>
+    <string name="book_of_recipes">Book of recipes</string>
+    <string name="adding_recipe">Adding recipe</string>
+    <string name="recipe_name">Recipe name</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="steps">Steps</string>
+    <string name="ingredient">Ingredient</string>
+    <string name="quantity">Quantity</string>
+    <string name="add_ingredient">Add ingredient</string>
+    <string name="about_text">Book of Recipes. Application wiil help you with your cooking!</string>
+    <string name="about">About</string>
+    <string name="save">Save</string>
+    <string name="name">Name</string>
+    <string name="steps_of_cooking">Steps of cooking</string>
+    <string name="info">Info</string>
+    <string name="add">Add</string>
+    <string name="adding_ingredient">Adding ingredient</string>
+    <string name="cooking">Cooking</string>
+    <string name="edit">Edit</string>
+    <string name="edit_recipe">Edit recipe</string>
+    <string name="filter">Filter</string>
+    <string name="input_name">Input name</string>
 </resources>

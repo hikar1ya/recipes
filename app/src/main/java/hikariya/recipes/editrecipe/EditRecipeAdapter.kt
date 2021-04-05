@@ -19,7 +19,7 @@ class EditRecipeViewHolder private constructor(itemView: View) : RecyclerView.Vi
         nameIngredient.setText(item.name)
         nameIngredient.doAfterTextChanged { item.name = nameIngredient.text.toString() }
         quantityIngredient.setText(item.quantity)
-        nameIngredient.doAfterTextChanged { item.quantity = quantityIngredient.text.toString() }
+        quantityIngredient.doAfterTextChanged { item.quantity = quantityIngredient.text.toString() }
     }
 
     companion object {

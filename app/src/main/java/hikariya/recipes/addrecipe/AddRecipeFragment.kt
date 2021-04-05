@@ -41,7 +41,7 @@ class AddRecipeFragment : Fragment() {
         // добавление нового рецепта
         binding.addRecipe.setOnClickListener {
             if (binding.nameEditText.text.isEmpty()) {
-                binding.nameRecipeWarning.text = "Введите название"
+                binding.nameRecipeWarning.text = "Input name"
                 binding.nameRecipeWarning.height = 50
             } else {
                 if (isIngredientsEmpty()) {
@@ -64,7 +64,7 @@ class AddRecipeFragment : Fragment() {
 
         viewModel.duplicateName.observe(viewLifecycleOwner, Observer { duplicate ->
             if (duplicate!!) {
-                binding.nameRecipeWarning.text = "Такое название уже существует"
+                binding.nameRecipeWarning.text = "Name already exits"
                 binding.nameRecipeWarning.height = 50
             } else {
                 binding.nameRecipeWarning.height = 0
@@ -73,7 +73,7 @@ class AddRecipeFragment : Fragment() {
 
         binding.nameEditText.doAfterTextChanged {
             if (binding.nameEditText.text.isNullOrBlank()) {
-                binding.nameRecipeWarning.text = "Введите название"
+                binding.nameRecipeWarning.text = "Input name"
                 binding.nameRecipeWarning.height = 50
             } else {
                 binding.nameRecipeWarning.height = 0

@@ -65,14 +65,14 @@
                     android:id="@+id/columnNameTextView"
                     style="@style/textViewStyle"
                     android:height="0dp"
-                    android:text="Название"
+                    android:text="@string/name"
                     android:layout_weight="10"/>
 
                 <TextView
                     android:id="@+id/columnQuantityTextView"
                     style="@style/textViewStyle"
                     android:height="0dp"
-                    android:text="Количество"
+                    android:text="@string/quantity"
                     android:layout_weight="7"/>
             </LinearLayout>
 

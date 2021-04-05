@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Recipes</string>
+    <string name="add_recipe">Добавить рецепт</string>
+    <string name="book_of_recipes">Книга рецептов</string>
+    <string name="adding_recipe">Добавление рецепта</string>
+    <string name="recipe_name">Название рецепта</string>
+    <string name="ingredients">Ингредиенты</string>
+    <string name="steps">Шаги</string>
+    <string name="ingredient">Ингредиент</string>
+    <string name="quantity">Количество</string>
+    <string name="add_ingredient">Добавить ингредиент</string>
+    <string name="about_text">Книга рецептов. Приложение позволяет создавать и редактировать свои рецепты!</string>
+    <string name="about">О приложении</string>
+    <string name="save">Сохранить</string>
+    <string name="name">Название</string>
+    <string name="steps_of_cooking">Шаги приготовления</string>
+    <string name="info">Информация</string>
+    <string name="add">Добавить</string>
+    <string name="adding_ingredient">Добавление ингредиента</string>
+    <string name="cooking">Приготовление</string>
+    <string name="edit">Редактировать</string>
+    <string name="edit_recipe">Редактирование рецепта</string>
+    <string name="filter">Фильтр</string>
+    <string name="input_name">Введите название</string>
+</resources>
